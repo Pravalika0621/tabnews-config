@@ -1,42 +1,42 @@
-# TabNews Config
+ TabNews Config
 
-> Essa versão beta só implementa o comando `tn test`. Ainda não possui os demais comandos.
+> This beta only implements the 'tn test' command. It does not yet have the other commands.
 
-Ferramenta para configurar um ambiente de desenvolvimento e testes com as mesmas configurações utilizadas no TabNews, incluindo:
+Tool to set up a development and testing environment with the same settings used in TabNews, including:
 
-- CLI do TabNews
-- Variáveis de ambiente com [dotenv-expand](https://www.npmjs.com/package/dotenv-expand)
+- TabNews CLI
+- Environment variables with [dotenv-expand](https://www.npmjs.com/package/dotenv-expand)
 - Test Runner [Vitest](https://vitest.dev/)
 - Linter [ESLint](https://eslint.org/)
-- Formatador de código [Prettier](https://prettier.io/)
-- Contêineres Docker
-  - Banco de dados [PostgreSQL](https://hub.docker.com/_/postgres)
-  - Servidor de email [MailCatcher](https://hub.docker.com/r/sj26/mailcatcher)
+- Code Formator [Prettier](https://prettier.io/)
+- Docker containers
+  - Database [PostgreSQL](https://hub.docker.com/_/postgres)
+  - Email Server [MailCatcher](https://hub.docker.com/r/sj26/mailcatcher)
 
-## Requisitos
+## Requirements
 
 - [Node.js](https://nodejs.org/)
 - [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/)
 
-## Instalação
+## Installation
 
-Para adicionar ao projeto, execute o comando:
+To add to the project, run the command:
 
 ```bash
 npm i -D @tabnews/config
 ```
 
-Para utilizar a CLI, instale globalmente com o comando:
+To use the CLI, install globally with the command:
 
 ```bash
 npm i -g @tabnews/config
 ```
 
-## Utilização
+## Usage
 
 ### Scripts NPM
 
-Adicione scripts no `package.json` do projeto, por exemplo:
+Add scripts in the project 'package.json', for example:
 
 ```json
 {
@@ -52,56 +52,56 @@ Adicione scripts no `package.json` do projeto, por exemplo:
 
 ### CLI
 
-Para iniciar os serviços utilizando as variáveis de ambiente de desenvolvimento, execute o seguinte comando (lembre-se de instalar globalmente a CLI ou usar `npx`):
+To start the services using the development environment variables, run the following command (remember to globally install the CLI or use 'npx'):
 
 ```bash
 tn
 ```
 
-Todos os demais comandos podem ser consultados com:
+All other commands can be consulted with:
 
 ```bash
 tn --help
 ```
 
-Alguns comandos possuem subcomandos, que também podem ser consultados através da CLI, por exemplo:
+Some commands have subcommands, which can also be queried through the CLI, for example:
 
 ```bash
 tn migration -h
 ```
 
-## Variáveis de ambiente
+## Environment Variables
 
-Aceita arquivos de variáveis de ambiente da mesma forma que o [Next.js](https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables). A exceção é a variável `NEXT_PUBLIC_WEBSERVER_PORT` no lugar da `PORT`. Ela permite definir a porta utilizada pelo servidor Next.js local.
+Accepts environment variable files in the same way as [Next.js](https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables). The exception is the variable 'NEXT_PUBLIC_WEBSERVER_PORT' in place of the 'PORT'. It allows you to define the port used by the server Next.js location.
 
-De acordo com o comando em execução, as variáveis de ambiente correspondentes serão carregadas a partir dos seguintes arquivos, se existirem:
+According to the running command, the corresponding environment variables will be loaded from the following files, if they exist:
 
-- Sempre carregadas:
+- Always charged:
 
-  - `.env` (variáveis padrão)
-  - `.env.local` (variáveis locais)
+  - .env (default variables)
+  - .env.local(local variables)
 
-- Carregadas de acordo com o comando em execução:
-  - `.env.development` (variáveis de desenvolvimento)
-  - `.env.development.local` (variáveis de desenvolvimento locais)
-  - `.env.test` (variáveis de teste)
-  - `.env.test.local` (variáveis de teste locais)
-  - `.env.production` (variáveis de produção)
-  - `.env.production.local` (variáveis de produção locais)
+- Loaded according to the running command:
+  - .env.development (development variables)
+  - '.env.development.local' (local development variables)
+  - '.env.test' (test variables)
+  - '.env.test.local' (local test variables)
+  - '.env.production' (production variables)
+  - '.env.production.local' (local production variables)
 
-A CLI aceita o parâmetro `--env-mode` (ou `-e`) para especificar um ambiente diferente do padrão para o comando, por exemplo, para subir o servidor de desenvolvimento com variáveis de ambiente de teste, mas sem executar os testes, execute:
+The CLI accepts the '--env-mode' (or '-e') parameter to specify a non-default environment for the command, e.g. to go up the development server with test environment variables but without running the tests, run:
 
 ```bash
 tn --env-mode test
 ```
 
-Aceita as [variáveis de ambiente do Docker Compose](https://docs.docker.com/compose/environment-variables/envvars/), das quais podemos destacar:
+Accepts the [Docker Compose environment variables](https://docs.docker.com/compose/environment-variables/envvars/), of which we can highlight:
 
-- [`COMPOSE_PROJECT_NAME`](https://docs.docker.com/compose/environment-variables/envvars/#compose_project_name): que permite isolar contêineres de diferentes projetos, mesmo usando o mesmo arquivo `compose.yml` padrão do TabNews. É útil também para isolar dados de testes automatizados e demais ambientes de desenvolvimento. Também possibilita executar diferentes projetos em paralelo, desde que não existam outros conflitos, como as portas expostas.
+- ['COMPOSE_PROJECT_NAME'](https://docs.docker.com/compose/environment-variables/envvars/#compose_project_name): which allows you to isolate containers from different projects, even using the same standard TabNews 'compose.yml' file. It is also useful for isolating data from automated tests and other development environments. It also makes it possible to run different projects in parallel, as long as there are no other conflicts, such as exposed doors.
 
-- [`COMPOSE_FILE`](https://docs.docker.com/compose/environment-variables/envvars/#compose_file): Permite usar outro arquivo `compose.yml` caso precise testar ou desenvolver algo com uma configuração mais específica.
+- ['COMPOSE_FILE'](https://docs.docker.com/compose/environment-variables/envvars/#compose_file): Allows you to use another 'compose.yml' file in case you need to test or develop something with a more specific configuration.
 
-### Exemplo de variáveis utilizadas no TabNews
+### Example of variables used in TabNews
 
 ```env
 POSTGRES_USER=user
@@ -119,4 +119,5 @@ EMAIL_HTTP_HOST=localhost
 EMAIL_HTTP_PORT=1080
 ```
 
-Caso defina as variáveis `POSTGRES_USER`, `POSTGRES_PASSWORD` e `POSTGRES_DB` com valores diferentes em cada arquivo, é recomendado também especificar um `COMPOSE_PROJECT_NAME` diferente. Caso contrário, será necessário remover o contêiner e o volume para recriar o Postgres com os novos valores sempre que trocar de ambiente.
+If you set the POSTGRES_USER, POSTGRES_PASSWORD, and POSTGRES_DB variables to different values in each file, it is recommended that you also specify a different COMPOSE_PROJECT_NAME. Otherwise, you'll need to remove the container and volume to recreate Postgres with the new values each time you switch environments
+<img width="468" height="658" alt="image" src="https://github.com/user-attachments/assets/275abcf7-c9e8-419c-8141-04dd47bf81cb" />
